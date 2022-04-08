@@ -38,18 +38,34 @@
                 </div>
                 <nav :class="{'block': open, 'hidden': !open}"
                     class="flex-grow px-4 pb-4 md:block md:pb-0 md:overflow-y-auto">
-                    <a href="{{route('admin.categoreis.index')}}"
-                    class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                            >Categories</a>
-                    <a href="{{route('admin.menus.index')}}"
-                    class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                            >Menus</a>
-                    <a href="{{route('admin.tables.index')}}"
-                    class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                            >Tables</a>
-                    <a href="{{route('admin.reservations.index')}}"
-                    class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                            >Reservations</a>
+                    <x-admin-link 
+                    :href="route('admin.categoreis.index')"
+                    :active="request()->routeIs('admin.categoreis.index')"
+                    >
+                        {{ __('Categories') }}
+                    </x-admin-link>
+
+                    <x-admin-link 
+                    :href="route('admin.menus.index')"
+                    :active="request()->routeIs('admin.menus.index')"
+                    >
+                        {{ __('Menus') }}
+                    </x-admin-link>
+
+                    <x-admin-link 
+                    :href="route('admin.tables.index')"
+                    :active="request()->routeIs('admin.tables.index')"
+                    >
+                        {{ __('Tables') }}
+                    </x-admin-link>
+
+                    <x-admin-link 
+                    :href="route('admin.reservations.index')"
+                    :active="request()->routeIs('admin.reservations.index')"
+                    >
+                        {{ __('Reservations') }}
+                    </x-admin-link>
+                    
                     <div @click.away="open = false" class="relative" x-data="{ open: false }">
                         <button @click="open = !open"
                             class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark:bg-transparent dark:focus:text-white dark:hover:text-white dark:focus:bg-gray-600 dark:hover:bg-gray-600 md:block hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
