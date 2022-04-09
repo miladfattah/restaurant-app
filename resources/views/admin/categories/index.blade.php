@@ -39,12 +39,22 @@
                                                 </td>
                                                 <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$category->description}}</td>
                                                 <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-                                                    <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                                    <div class="flex space-x-4">
+                                                        <a href="{{route('admin.categoreis.edit' , $category->id)}}"  class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                                        <form action="{{route('admin.categoreis.destroy' , $category->id)}}" method="POST">
+                                                            @csrf 
+                                                            @method('DELETE')
+                                                            <button class="text-red-600 dark:text-red-500 hover:underline">Delete</button>
+                                                        </form>
+                                                    </div>
                                                 </td>
                                             </tr>
                                        @empty
-                                            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">Not Result</td>
+                                            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700 w-full">
+                                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white w-full">Not Result</td>
+                                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white w-full"></td>
+                                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white w-full"></td>
+                                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white w-full"></td>
                                             </tr>
                                        @endforelse
                                     </tbody>
