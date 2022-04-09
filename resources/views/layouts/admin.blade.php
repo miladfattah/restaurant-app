@@ -99,7 +99,7 @@
                     </div>
                 </nav>
             </div>
-            <main class="m-2 p-8 w-full">
+            <main class="m-2 p-8 w-full dark:bg-gray-500 rounded shadow-sm">
                 {{ $slot }}
             </main>
         </div>

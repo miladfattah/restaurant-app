@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Menu ;
+use App\Models\Category ;
+use App\Http\Requests\MenueStoreRequest;
+use Illuminate\Support\Facades\Storage;
 
 class MenuController extends Controller
 {
@@ -14,7 +18,8 @@ class MenuController extends Controller
      */
     public function index()
     {
-        return view('admin.menus.index');
+        $menus = Menu::all();
+        return view('admin.menus.index' , compact('menus'));
     }
 
     /**
@@ -24,7 +29,8 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('admin.menus.create');
+        $categories = Category::all();
+        return view('admin.menus.create' , compact('categories'));
     }
 
     /**
@@ -33,21 +39,23 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MenueStoreRequest $request)
     {
-        //
+        $image = $request->file('image')->store('public/menu');
+        $menu = Menu::create([
+            'name' => $request->name, 
+            'description' => $request->description , 
+            'price' => $request->price ,
+            'image' => $image 
+        ]);
+
+        if($request->has('categories')){
+            $menu->categories()->attach($request->categories);
+        }
+
+        return to_route('admin.menus.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -55,9 +63,10 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Menu $menu)
     {
-        //
+        $categories = Category::all();
+        return view('admin.menus.edit' , compact('menu' , 'categories'));
     }
 
     /**
@@ -67,9 +76,32 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Menu $menu)
     {
-        //
+        $request->validate([
+            'name' => 'required' , 
+            'description' => 'required' , 
+            'price' => 'required' 
+        ]);
+
+        $image = $menu->image ; 
+        if($request->hasFile('image')){
+            Storage::delete($menu->image);
+            $image = $request->file('image')->store('public/menu');
+        }
+
+        $menu->update([
+            'name' => $request->name , 
+            'description' => $request->description , 
+            'price' => $request->price , 
+            'image' => $image 
+        ]);
+
+        if($request->has('categories')){
+            $menu->categories()->sync($request->categories);
+        }
+        return to_route('admin.menus.index');
+
     }
 
     /**
@@ -78,8 +110,12 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Menu $menu)
     {
-        //
+        Storage::delete($menu->image);
+        $menu->categories()->detach();
+        $menu->delete();
+
+        return to_route('admin.menus.index');
     }
 }

@@ -2,8 +2,7 @@
  
     <div class="py-12">
         <div class="flex justify-end mx-auto sm:px-6 lg:px-8 mb-5">
-            <a href="{{route('admin.categoreis.create')}}" 
-                class="py-2 px-3 bg-indigo-500 text-white rounded ">New Category</a>
+            <a href="{{route('admin.categoreis.create')}}" class="py-2 px-3 bg-indigo-500 text-white rounded ">New Category</a>
         </div>
         <div class="max-full  mx-auto sm:px-6 lg:px-8">
             <div class="max-full  mx-auto">
