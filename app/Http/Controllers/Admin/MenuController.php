@@ -53,7 +53,7 @@ class MenuController extends Controller
             $menu->categories()->attach($request->categories);
         }
 
-        return to_route('admin.menus.index');
+        return to_route('admin.menus.index')->with('success' , 'Menu created');
     }
 
 
@@ -100,7 +100,8 @@ class MenuController extends Controller
         if($request->has('categories')){
             $menu->categories()->sync($request->categories);
         }
-        return to_route('admin.menus.index');
+
+        return to_route('admin.menus.index')->with('warning' , 'Menu edited');
 
     }
 
@@ -116,6 +117,6 @@ class MenuController extends Controller
         $menu->categories()->detach();
         $menu->delete();
 
-        return to_route('admin.menus.index');
+        return to_route('admin.menus.index')->with('danger' , 'Menu deleted');
     }
 }

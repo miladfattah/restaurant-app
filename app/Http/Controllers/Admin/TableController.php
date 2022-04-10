@@ -46,7 +46,7 @@ class TableController extends Controller
             'status' => $request->status 
         ]);
 
-        return to_route('admin.tables.index');
+        return to_route('admin.tables.index')->with('success' , 'Table created');
     }
 
     /**
@@ -76,7 +76,7 @@ class TableController extends Controller
             'status' => $request->status 
         ]);
 
-        return to_route('admin.tables.index');
+        return to_route('admin.tables.index')->with('warning' , 'Table edited');
     }
 
     /**
@@ -89,6 +89,6 @@ class TableController extends Controller
     {
         $table->reservations()->delete(); 
         $table->delete();
-        return to_route('admin.tables.index');
+        return to_route('admin.tables.index')->with('danger' , 'Table deleted');
     }
 }

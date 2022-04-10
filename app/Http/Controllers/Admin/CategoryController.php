@@ -45,7 +45,7 @@ class CategoryController extends Controller
             'description' => $request->description , 
             'image' => $image 
         ]);
-        return to_route('admin.categoreis.index');
+        return to_route('admin.categoreis.index')->with('success' , 'Category created');
     }
 
     /**
@@ -96,7 +96,7 @@ class CategoryController extends Controller
             'image' => $image 
         ]);
 
-        return to_route('admin.categoreis.index');
+        return to_route('admin.categoreis.index')->with('warning' , 'Category Edited');
 
     }
 
@@ -111,6 +111,6 @@ class CategoryController extends Controller
         Storage::delete($categorei->image);
         $categorei->delete();
 
-        return to_route('admin.categoreis.index');
+        return to_route('admin.categoreis.index')->with('danger' , 'Category Deleted');
     }
 }

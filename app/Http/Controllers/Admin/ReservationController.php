@@ -51,7 +51,7 @@ class ReservationController extends Controller
             'table_id' => $request->table_id
         ]);
 
-        return to_route('admin.reservations.index');
+        return to_route('admin.reservations.index')->with('success' , 'Reservation');
     }
 
     /**
