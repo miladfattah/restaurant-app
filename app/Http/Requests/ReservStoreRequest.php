@@ -31,7 +31,7 @@ class ReservStoreRequest extends FormRequest
             'email' => 'required|email',
             'tel_number'=> 'required' , 
             'guest_number'=> 'required' , 
-            'res_date' => [ 'required' , 'date' , new DateBetween ] , 
+            'res_date' => [ 'required' , 'date' ] , 
             'table_id' => 'required' 
         ];
     }

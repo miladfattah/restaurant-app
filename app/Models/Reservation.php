@@ -9,4 +9,9 @@ class Reservation extends Model
 {
     use HasFactory;
     public $guarded = [];
+
+    public function table()
+    {
+        return $this->belongsTo(Table::class);
+    }
 }

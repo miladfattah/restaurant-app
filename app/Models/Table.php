@@ -9,4 +9,9 @@ class Table extends Model
 {
     use HasFactory;
     public $guarded = [];
+
+    public function  reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }
