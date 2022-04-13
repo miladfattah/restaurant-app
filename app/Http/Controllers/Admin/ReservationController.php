@@ -70,16 +70,7 @@ class ReservationController extends Controller
         return to_route('admin.reservations.index')->with('success' , 'Reservation');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+  
 
     /**
      * Show the form for editing the specified resource.
@@ -87,9 +78,10 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Reservation $reservation)
     {
-        //
+        $tables = Table::where('status' , TableStatus::Available )->get();
+        return view('admin.reservations.edit'  , compact('tables' , 'reservation'));
     }
 
     /**
@@ -99,9 +91,26 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ReservStoreRequest $request, Reservation $reservation)
     {
-        //
+        $table = Table::findOrFail($request->table_id);
+
+        if( $request->guest_number > $table->guest_number)
+        {
+            return back()->with('warning' , 'Please choose the table base on guests.');
+        }
+
+        $reservation->update([
+            'first_name' => $request->first_name , 
+            'last_name' => $request->last_name , 
+            'email' => $request->email  , 
+            'tel_number' => $request->tel_number , 
+            'guest_number' => $request->guest_number , 
+            'res_date' => $request->res_date ,
+            'table_id' => $request->table_id
+        ]);
+
+        return to_route('admin.reservations.index')->with('warning' , 'Reservation edited');
     }
 
     /**
@@ -110,8 +119,9 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy( Reservation $reservation)
     {
-        //
+        $reservation->delete();
+        return to_route('admin.reservations.index')->with('danger' , 'Reservation deleted');
     }
 }

@@ -2,7 +2,7 @@
 
     <section class="container mx-auto my-5">
         <div class="grid lg:grid-cols-4 gap-6 w-full">
-            @foreach ($category->menus as $menu)
+            @foreach ($menus as $menu)
                 <div class="rounded shadow-lg">
                     <img class="w-full h-48 rounded" src="{{Storage::url($menu->image)}}" alt="">
                     <div>
@@ -18,4 +18,5 @@
             @endforeach
         </div>
     </section>
+
 </x-guest_layout>
